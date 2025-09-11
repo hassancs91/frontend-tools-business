@@ -58,6 +58,69 @@
                         <!-- Tweet content will be dynamically inserted here -->
                     </div>
                 </div>
+                
+                <div class="background-selector">
+                    <h4>Choose Background</h4>
+                    <div class="background-options">
+                        <!-- Gradient backgrounds -->
+                        <div class="background-option active" data-bg-type="gradient" data-bg-value="blue-gradient" title="Blue Gradient">
+                            <div class="bg-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="gradient" data-bg-value="sunset" title="Sunset">
+                            <div class="bg-preview" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="gradient" data-bg-value="ocean" title="Ocean">
+                            <div class="bg-preview" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="gradient" data-bg-value="forest" title="Forest">
+                            <div class="bg-preview" style="background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%)"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="gradient" data-bg-value="aurora" title="Aurora">
+                            <div class="bg-preview" style="background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="gradient" data-bg-value="fire" title="Fire">
+                            <div class="bg-preview" style="background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%)"></div>
+                        </div>
+                        
+                        <!-- Solid colors -->
+                        <div class="background-option" data-bg-type="solid" data-bg-value="#1DA1F2" title="Twitter Blue">
+                            <div class="bg-preview" style="background: #1DA1F2"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="solid" data-bg-value="#000000" title="Black">
+                            <div class="bg-preview" style="background: #000000"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="solid" data-bg-value="#FFFFFF" title="White">
+                            <div class="bg-preview" style="background: #FFFFFF; border: 1px solid #e1e8ed"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="solid" data-bg-value="#6B46C1" title="Purple">
+                            <div class="bg-preview" style="background: #6B46C1"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="solid" data-bg-value="#065F46" title="Dark Green">
+                            <div class="bg-preview" style="background: #065F46"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="solid" data-bg-value="#1E293B" title="Slate">
+                            <div class="bg-preview" style="background: #1E293B"></div>
+                        </div>
+                        
+                        <!-- Pattern backgrounds -->
+                        <div class="background-option" data-bg-type="pattern" data-bg-value="dots" title="Dots Pattern">
+                            <div class="bg-preview pattern-dots"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="pattern" data-bg-value="lines" title="Lines Pattern">
+                            <div class="bg-preview pattern-lines"></div>
+                        </div>
+                        <div class="background-option" data-bg-type="pattern" data-bg-value="grid" title="Grid Pattern">
+                            <div class="bg-preview pattern-grid"></div>
+                        </div>
+                        
+                        <!-- Custom color picker -->
+                        <div class="background-option color-picker-option" data-bg-type="custom" title="Custom Color">
+                            <input type="color" id="custom-color" value="#764ba2">
+                            <div class="bg-preview" id="custom-preview"></div>
+                        </div>
+                    </div>
+                </div>
+                
                 <button id="download-btn" class="download-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>

@@ -5,6 +5,23 @@ class TwitterToImageConverter {
         this.canvas.width = 1080;
         this.canvas.height = 1080;
         
+        this.currentTweetData = null;
+        this.selectedBackground = {
+            type: 'gradient',
+            value: 'blue-gradient'
+        };
+        
+        this.backgroundPresets = {
+            gradients: {
+                'blue-gradient': ['#667eea', '#764ba2'],
+                'sunset': ['#f093fb', '#f5576c'],
+                'ocean': ['#4facfe', '#00f2fe'],
+                'forest': ['#0ba360', '#3cba92'],
+                'aurora': ['#e0c3fc', '#8ec5fc'],
+                'fire': ['#ff9a56', '#ff6a88']
+            }
+        };
+        
         this.initTheme();
         this.bindEvents();
     }
@@ -52,6 +69,55 @@ class TwitterToImageConverter {
                 this.convertTweet();
             }
         });
+        
+        // Background selector events
+        document.addEventListener('click', (e) => {
+            const bgOption = e.target.closest('.background-option');
+            if (bgOption && !bgOption.classList.contains('color-picker-option')) {
+                this.selectBackground(bgOption);
+            }
+        });
+        
+        // Custom color picker event
+        const customColorInput = document.getElementById('custom-color');
+        if (customColorInput) {
+            customColorInput.addEventListener('input', (e) => {
+                const colorPickerOption = e.target.closest('.background-option');
+                this.selectBackground(colorPickerOption, e.target.value);
+            });
+        }
+    }
+    
+    selectBackground(bgOption, customColor = null) {
+        // Remove active class from all options
+        document.querySelectorAll('.background-option').forEach(opt => {
+            opt.classList.remove('active');
+        });
+        
+        // Add active class to selected option
+        bgOption.classList.add('active');
+        
+        // Update selected background
+        const bgType = bgOption.dataset.bgType;
+        const bgValue = customColor || bgOption.dataset.bgValue;
+        
+        this.selectedBackground = {
+            type: bgType,
+            value: bgValue
+        };
+        
+        // Update custom color preview if it's a custom color
+        if (bgType === 'custom' && customColor) {
+            const customPreview = document.getElementById('custom-preview');
+            if (customPreview) {
+                customPreview.style.background = customColor;
+            }
+        }
+        
+        // Re-render the canvas with new background if tweet data exists
+        if (this.currentTweetData) {
+            this.generateCanvasImage(this.currentTweetData);
+        }
     }
 
     showError(message) {
@@ -216,24 +282,18 @@ class TwitterToImageConverter {
         const ctx = this.ctx;
         const canvas = this.canvas;
         
+        // Store tweet data for re-rendering
+        this.currentTweetData = tweetData;
+        
         // Get current theme
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         
         // Clear canvas
-        ctx.fillStyle = isDark ? '#000000' : '#ffffff';
+        ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // Add background gradient
-        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        if (isDark) {
-            gradient.addColorStop(0, '#000000');
-            gradient.addColorStop(1, '#0F1419');
-        } else {
-            gradient.addColorStop(0, '#F7F9FA');
-            gradient.addColorStop(1, '#E8F4FD');
-        }
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Apply selected background
+        this.applyBackground(ctx, canvas);
         
         // Draw tweet card background
         const cardSize = 800;
@@ -340,6 +400,70 @@ class TwitterToImageConverter {
         ctx.closePath();
     }
 
+    applyBackground(ctx, canvas) {
+        const bgType = this.selectedBackground.type;
+        const bgValue = this.selectedBackground.value;
+        
+        if (bgType === 'gradient') {
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            const colors = this.backgroundPresets.gradients[bgValue];
+            if (colors) {
+                gradient.addColorStop(0, colors[0]);
+                gradient.addColorStop(1, colors[1]);
+            } else {
+                // Fallback gradient
+                gradient.addColorStop(0, '#667eea');
+                gradient.addColorStop(1, '#764ba2');
+            }
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+        } else if (bgType === 'solid' || bgType === 'custom') {
+            ctx.fillStyle = bgValue;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+        } else if (bgType === 'pattern') {
+            // First fill with a base color
+            ctx.fillStyle = '#f0f9ff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            if (bgValue === 'dots') {
+                ctx.fillStyle = 'rgba(29, 161, 242, 0.1)';
+                for (let x = 0; x < canvas.width; x += 30) {
+                    for (let y = 0; y < canvas.height; y += 30) {
+                        ctx.beginPath();
+                        ctx.arc(x, y, 3, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+            } else if (bgValue === 'lines') {
+                ctx.strokeStyle = 'rgba(29, 161, 242, 0.1)';
+                ctx.lineWidth = 1;
+                for (let i = -canvas.height; i < canvas.width; i += 40) {
+                    ctx.beginPath();
+                    ctx.moveTo(i, 0);
+                    ctx.lineTo(i + canvas.height, canvas.height);
+                    ctx.stroke();
+                }
+            } else if (bgValue === 'grid') {
+                ctx.strokeStyle = 'rgba(29, 161, 242, 0.1)';
+                ctx.lineWidth = 1;
+                for (let x = 0; x < canvas.width; x += 30) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < canvas.height; y += 30) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+    
     wrapText(ctx, text, x, y, maxWidth, lineHeight) {
         // First split by line breaks, then by words
         const lines = text.split('\n');

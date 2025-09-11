@@ -346,6 +346,100 @@ body {
     }
 }
 
+/* Background Selector Styles */
+.background-selector {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--white);
+    border: 1px solid var(--extra-light-gray);
+    border-radius: 12px;
+}
+
+.background-selector h4 {
+    margin-bottom: 1rem;
+    color: var(--dark-gray);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.background-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.75rem;
+}
+
+.background-option {
+    position: relative;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    border: 3px solid transparent;
+}
+
+.background-option:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.background-option.active {
+    border-color: var(--twitter-blue);
+    box-shadow: 0 0 0 2px rgba(29, 161, 242, 0.2);
+}
+
+.bg-preview {
+    width: 100%;
+    height: 80px;
+    border-radius: 5px;
+    position: relative;
+}
+
+/* Pattern backgrounds */
+.pattern-dots {
+    background: #f0f9ff;
+    background-image: radial-gradient(circle, rgba(29, 161, 242, 0.2) 2px, transparent 2px);
+    background-size: 20px 20px;
+}
+
+.pattern-lines {
+    background: #f0f9ff;
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(29, 161, 242, 0.1) 10px,
+        rgba(29, 161, 242, 0.1) 20px
+    );
+}
+
+.pattern-grid {
+    background: #f0f9ff;
+    background-image: 
+        linear-gradient(rgba(29, 161, 242, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(29, 161, 242, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Custom color picker */
+.color-picker-option {
+    position: relative;
+}
+
+.color-picker-option input[type="color"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#custom-preview {
+    background: linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd),
+                linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd);
+    background-size: 10px 10px;
+    background-position: 0 0, 5px 5px;
+}
+
 @media (max-width: 480px) {
     .tweet-card {
         width: 300px;
@@ -361,5 +455,14 @@ body {
     .tweet-content {
         font-size: 0.9rem;
         -webkit-line-clamp: 6;
+    }
+    
+    .background-options {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 0.5rem;
+    }
+    
+    .bg-preview {
+        height: 60px;
     }
 }
