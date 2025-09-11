@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter to Image Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                <span>Twitter to Image</span>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode">
+                <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.06l1.591-1.591zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.591-1.591a.75.75 0 10-1.06 1.06l1.591 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.28 17.28a.75.75 0 00-1.06 1.06l1.591 1.591a.75.75 0 101.06-1.06L7.28 17.28zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.166 7.106a.75.75 0 00-1.06-1.06L3.515 7.637a.75.75 0 101.06 1.06L6.166 7.106z"/>
+                </svg>
+                <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                    <path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/>
+                </svg>
+            </button>
+            <p class="subtitle">Convert Twitter posts into square images for social media</p>
+        </header>
+
+        <main class="main">
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="twitter-url">Twitter Post URL</label>
+                    <input 
+                        type="url" 
+                        id="twitter-url" 
+                        placeholder="https://x.com/username/status/1234567890" 
+                        class="url-input"
+                    >
+                    <label for="profile-url">Profile Picture URL (optional)</label>
+                    <input 
+                        type="url" 
+                        id="profile-url" 
+                        placeholder="https://example.com/profile-picture.jpg" 
+                        class="url-input"
+                    >
+                    <button id="convert-btn" class="convert-btn">
+                        <span class="btn-text">Convert to Image</span>
+                        <div class="loading-spinner"></div>
+                    </button>
+                </div>
+                <div id="error-message" class="error-message"></div>
+            </div>
+
+            <div id="preview-section" class="preview-section" style="display: none;">
+                <h3>Preview</h3>
+                <div class="preview-container">
+                    <div id="tweet-card" class="tweet-card">
+                        <!-- Tweet content will be dynamically inserted here -->
+                    </div>
+                </div>
+                <button id="download-btn" class="download-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                    </svg>
+                    Download Image
+                </button>
+            </div>
+        </main>
+
+        <canvas id="canvas" style="display: none;"></canvas>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
