@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPEG Compressor - Reduce Image File Size Online</title>
+    <link rel="stylesheet" href="tools.css">
+    <style>
+        /* Page-specific styles */
+        .compressor-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .upload-area {
+            background: var(--card-bg);
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background: var(--hover-bg);
+        }
+
+        .upload-area.drag-over {
+            border-color: var(--primary-color);
+            background: var(--hover-bg);
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .upload-text {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .controls-panel {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .controls-panel.active {
+            display: block;
+        }
+
+        .quality-control {
+            margin-bottom: 2rem;
+        }
+
+        .quality-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .quality-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--border-color);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .quality-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .quality-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            border: none;
+        }
+
+        .preview-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .preview-container.active {
+            display: grid;
+        }
+
+        .preview-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .preview-title {
+            font-weight: 600;
+        }
+
+        .preview-size {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .preview-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .compression-stats {
+            background: var(--success-bg);
+            color: var(--success-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--hover-bg);
+        }
+
+        .batch-list {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .batch-list.active {
+            display: block;
+        }
+
+        .batch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .batch-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            background: var(--bg-color);
+        }
+
+        .batch-item-name {
+            flex: 1;
+            margin-right: 1rem;
+        }
+
+        .batch-item-size {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-right: 1rem;
+        }
+
+        .batch-item-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .status-processing {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .status-complete {
+            background: var(--success-bg);
+            color: var(--success-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="site-container">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.8956zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.4069-.6794zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8351-2.8036a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/>
+                    </svg>
+                    <span>Web Tools</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="tools.html" class="nav-link">All Tools</a>
+                    <a href="index.html" class="nav-link">Tweet to Image</a>
+                    <a href="jpeg-compressor.html" class="nav-link active">JPEG Compressor</a>
+                    <a href="qr-generator.html" class="nav-link">QR Generator</a>
+                    <a href="email-extractor.html" class="nav-link">Email Extractor</a>
+                    <a href="color-palette.html" class="nav-link">Color Palette</a>
+                </nav>
+                <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.06l1.591-1.591zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.591-1.591a.75.75 0 10-1.06 1.06l1.591 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.28 17.28a.75.75 0 00-1.06 1.06l1.591 1.591a.75.75 0 101.06-1.06L7.28 17.28zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.166 7.106a.75.75 0 00-1.06-1.06L3.515 7.637a.75.75 0 101.06 1.06L6.166 7.106z"/>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                        <path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>JPEG Image Compressor</h1>
+            <p>Compress JPEG images instantly in your browser. Reduce file size while maintaining quality.</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="compressor-container">
+            <!-- Upload Area -->
+            <div class="upload-area" id="upload-area">
+                <svg class="upload-icon" width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 7h-1V6a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v1H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zM8 6a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1H8V6zm4 10.5l-4-4h2.5V10h3v2.5H16l-4 4z"/>
+                </svg>
+                <p class="upload-text">Drag and drop your JPEG images here</p>
+                <button class="btn btn-primary">Or click to browse files</button>
+                <input type="file" id="file-input" class="file-input" accept="image/jpeg,image/jpg" multiple>
+            </div>
+
+            <!-- Batch List -->
+            <div class="batch-list" id="batch-list">
+                <div class="batch-header">
+                    <h3>Files to Process</h3>
+                    <button class="btn btn-secondary" id="clear-all">Clear All</button>
+                </div>
+                <div id="batch-items"></div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-panel" id="controls-panel">
+                <div class="quality-control">
+                    <div class="quality-label">
+                        <span>Compression Quality</span>
+                        <span id="quality-value">75%</span>
+                    </div>
+                    <input type="range" class="quality-slider" id="quality-slider" min="1" max="100" value="75">
+                    <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-secondary);">
+                        <span>High Compression</span>
+                        <span>Best Quality</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="compress-btn">Compress Images</button>
+                    <button class="btn btn-secondary" id="download-all-btn" style="display: none;">Download All</button>
+                </div>
+            </div>
+
+            <!-- Preview Container -->
+            <div class="preview-container" id="preview-container">
+                <div class="preview-box">
+                    <div class="preview-header">
+                        <span class="preview-title">Original</span>
+                        <span class="preview-size" id="original-size">-</span>
+                    </div>
+                    <img id="original-preview" class="preview-image" alt="Original image">
+                </div>
+                <div class="preview-box">
+                    <div class="preview-header">
+                        <span class="preview-title">Compressed</span>
+                        <span class="preview-size" id="compressed-size">-</span>
+                    </div>
+                    <img id="compressed-preview" class="preview-image" alt="Compressed image">
+                    <div class="compression-stats" id="compression-stats"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2>Features</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                    </svg>
+                    <h3>Private & Secure</h3>
+                    <p>Your images never leave your browser. All processing is done locally on your device.</p>
+                </div>
+                <div class="feature">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                    </svg>
+                    <h3>Batch Processing</h3>
+                    <p>Compress multiple images at once with the same quality settings.</p>
+                </div>
+                <div class="feature">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <h3>Quality Control</h3>
+                    <p>Adjust compression level from 1-100% to find the perfect balance.</p>
+                </div>
+                <div class="feature">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+                    </svg>
+                    <h3>Instant Results</h3>
+                    <p>See compressed results immediately with real-time preview.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>&copy; 2024 Web Tools Collection. Built with vanilla JavaScript for educational purposes.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="jpeg-compressor.js"></script>
+</body>
+</html>

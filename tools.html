@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Tools Collection - Free Online Tools</title>
+    <link rel="stylesheet" href="tools.css">
+</head>
+<body>
+    <div class="site-container">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.8956zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.4069-.6794zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8351-2.8036a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/>
+                    </svg>
+                    <span>Web Tools</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="tools.html" class="nav-link active">All Tools</a>
+                    <a href="https://github.com" target="_blank" class="nav-link">GitHub</a>
+                </nav>
+                <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.06l1.591-1.591zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.591-1.591a.75.75 0 10-1.06 1.06l1.591 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.28 17.28a.75.75 0 00-1.06 1.06l1.591 1.591a.75.75 0 101.06-1.06L7.28 17.28zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.166 7.106a.75.75 0 00-1.06-1.06L3.515 7.637a.75.75 0 101.06 1.06L6.166 7.106z"/>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                        <path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Free Online Web Tools</h1>
+                <p>Professional client-side tools that work entirely in your browser. No uploads, no servers, complete privacy.</p>
+            </div>
+        </section>
+
+        <!-- Tools Grid -->
+        <main class="tools-grid-container">
+            <div class="tools-grid">
+                <!-- JPEG Compressor Tool -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                    </div>
+                    <h3>JPEG Compressor</h3>
+                    <p>Compress JPEG images directly in your browser. Reduce file size while maintaining quality. No uploads needed.</p>
+                    <div class="tool-features">
+                        <span class="feature-tag">Privacy-First</span>
+                        <span class="feature-tag">Batch Processing</span>
+                        <span class="feature-tag">Instant</span>
+                    </div>
+                    <a href="jpeg-compressor.html" class="tool-link">
+                        Launch Tool
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Tweet to Image Tool -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </div>
+                    <h3>Tweet to Image</h3>
+                    <p>Convert Twitter/X posts into beautiful images. Perfect for sharing on other platforms or presentations.</p>
+                    <div class="tool-features">
+                        <span class="feature-tag">Social Media</span>
+                        <span class="feature-tag">Custom Backgrounds</span>
+                        <span class="feature-tag">HD Export</span>
+                    </div>
+                    <a href="index.html" class="tool-link">
+                        Launch Tool
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Ad Placement 1 -->
+                <div class="tool-card ad-card">
+                    <div class="ad-label">Advertisement</div>
+                    <div class="ad-content">
+                        <div class="ad-placeholder">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" opacity="0.3">
+                                <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 17h14v-6H5v6z"/>
+                            </svg>
+                            <p>300x250</p>
+                            <p>Medium Rectangle</p>
+                        </div>
+                    </div>
+                    <p class="ad-description">Your ad could be here. Reach thousands of developers and designers daily.</p>
+                    <div class="tool-features">
+                        <span class="feature-tag">Targeted Audience</span>
+                        <span class="feature-tag">High Engagement</span>
+                        <span class="feature-tag">Premium Placement</span>
+                    </div>
+                </div>
+
+                <!-- QR Code Generator -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13 0h-2v2h2v-2zm2 0v2h2v-2h-2zm-2 2h-2v2h2v2h-2v-2h-2v2h-2v-2h2v-2h2v-2h2v2zm2-2v-2h2v2h-2zm0 4h2v2h-2v-2z"/>
+                        </svg>
+                    </div>
+                    <h3>QR Code Generator</h3>
+                    <p>Create QR codes for URLs, text, WiFi credentials, and more. Customizable colors and download formats.</p>
+                    <div class="tool-features">
+                        <span class="feature-tag">Multiple Formats</span>
+                        <span class="feature-tag">Custom Design</span>
+                        <span class="feature-tag">SVG Export</span>
+                    </div>
+                    <a href="qr-generator.html" class="tool-link">
+                        Launch Tool
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Email Extractor -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                    </div>
+                    <h3>Email Extractor</h3>
+                    <p>Extract email addresses from any text. Find, validate, and export emails with advanced filtering.</p>
+                    <div class="tool-features">
+                        <span class="feature-tag">Regex Parsing</span>
+                        <span class="feature-tag">Bulk Export</span>
+                        <span class="feature-tag">Domain Filter</span>
+                    </div>
+                    <a href="email-extractor.html" class="tool-link">
+                        Launch Tool
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Ad Placement 2 -->
+                <div class="tool-card ad-card">
+                    <div class="ad-label">Advertisement</div>
+                    <div class="ad-content">
+                        <div class="ad-placeholder">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" opacity="0.3">
+                                <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 17h14v-6H5v6z"/>
+                            </svg>
+                            <p>728x90</p>
+                            <p>Leaderboard Banner</p>
+                        </div>
+                    </div>
+                    <p class="ad-description">Promote your developer tools and services to our engaged audience.</p>
+                    <div class="tool-features">
+                        <span class="feature-tag">Developer Focus</span>
+                        <span class="feature-tag">Tech Savvy Users</span>
+                        <span class="feature-tag">Global Reach</span>
+                    </div>
+                </div>
+
+                <!-- Color Palette Generator -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10c1.38 0 2.5-1.12 2.5-2.5 0-.61-.23-1.2-.64-1.67-.08-.09-.13-.21-.13-.33 0-.28.22-.5.5-.5H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 8 6.5 8 8 8.67 8 9.5 7.33 11 6.5 11zm3-4C8.67 7 8 6.33 8 5.5S8.67 4 9.5 4s1.5.67 1.5 1.5S10.33 7 9.5 7zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 4 14.5 4s1.5.67 1.5 1.5S15.33 7 14.5 7zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 8 17.5 8s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                        </svg>
+                    </div>
+                    <h3>Color Palette from Image</h3>
+                    <p>Extract color palettes from images or generate harmonious color schemes for your design projects.</p>
+                    <div class="tool-features">
+                        <span class="feature-tag">Image Analysis</span>
+                        <span class="feature-tag">Color Theory</span>
+                        <span class="feature-tag">Export Codes</span>
+                    </div>
+                    <a href="color-palette.html" class="tool-link">
+                        Launch Tool
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2>Why Use Our Tools?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                    </svg>
+                    <h3>100% Private</h3>
+                    <p>All processing happens in your browser. Your data never leaves your device.</p>
+                </div>
+                <div class="feature">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                    </svg>
+                    <h3>Instant Results</h3>
+                    <p>No waiting for uploads or server processing. Get results immediately.</p>
+                </div>
+                <div class="feature">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <h3>No Installation</h3>
+                    <p>Works directly in your web browser. No downloads or installations required.</p>
+                </div>
+                <div class="feature">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 3H3c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5a2 2 0 0 0-2-2zm0 11H3V5h18v9z"/>
+                    </svg>
+                    <h3>Cross-Platform</h3>
+                    <p>Works on any device with a modern web browser - desktop, tablet, or mobile.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>&copy; 2024 Web Tools Collection. Built with vanilla JavaScript for educational purposes.</p>
+                <p>Demonstrating the power of client-side web technologies.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = themeToggle.querySelector('.sun-icon');
+        const moonIcon = themeToggle.querySelector('.moon-icon');
+
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+
+            if (isDark) {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -76,6 +76,12 @@ class TwitterToImageConverter {
             if (bgOption && !bgOption.classList.contains('color-picker-option')) {
                 this.selectBackground(bgOption);
             }
+            
+            // Tab switching for background selector
+            const bgTab = e.target.closest('.bg-tab');
+            if (bgTab) {
+                this.switchBackgroundTab(bgTab.dataset.tab);
+            }
         });
         
         // Custom color picker event
@@ -114,10 +120,60 @@ class TwitterToImageConverter {
             }
         }
         
+        // Update the preview background
+        this.updatePreviewBackground();
+        
         // Re-render the canvas with new background if tweet data exists
         if (this.currentTweetData) {
             this.generateCanvasImage(this.currentTweetData);
         }
+    }
+    
+    updatePreviewBackground() {
+        const previewWrapper = document.querySelector('.preview-wrapper');
+        if (!previewWrapper) return;
+        
+        const bgType = this.selectedBackground.type;
+        const bgValue = this.selectedBackground.value;
+        
+        if (bgType === 'gradient') {
+            const colors = this.backgroundPresets.gradients[bgValue];
+            if (colors) {
+                previewWrapper.style.background = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 100%)`;
+            }
+        } else if (bgType === 'solid' || bgType === 'custom') {
+            previewWrapper.style.background = bgValue;
+        } else if (bgType === 'pattern') {
+            previewWrapper.style.background = '#f0f9ff';
+            if (bgValue === 'dots') {
+                previewWrapper.style.backgroundImage = 'radial-gradient(circle, rgba(29, 161, 242, 0.2) 2px, transparent 2px)';
+                previewWrapper.style.backgroundSize = '20px 20px';
+            } else if (bgValue === 'lines') {
+                previewWrapper.style.backgroundImage = 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(29, 161, 242, 0.1) 10px, rgba(29, 161, 242, 0.1) 20px)';
+                previewWrapper.style.backgroundSize = 'auto';
+            } else if (bgValue === 'grid') {
+                previewWrapper.style.backgroundImage = 'linear-gradient(rgba(29, 161, 242, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(29, 161, 242, 0.1) 1px, transparent 1px)';
+                previewWrapper.style.backgroundSize = '20px 20px';
+            }
+        }
+    }
+    
+    switchBackgroundTab(tabName) {
+        // Update tab buttons
+        document.querySelectorAll('.bg-tab').forEach(tab => {
+            tab.classList.remove('active');
+            if (tab.dataset.tab === tabName) {
+                tab.classList.add('active');
+            }
+        });
+        
+        // Show/hide corresponding background options
+        document.querySelectorAll('.background-options').forEach(options => {
+            options.classList.remove('active');
+            if (options.classList.contains(`tab-${tabName}`)) {
+                options.classList.add('active');
+            }
+        });
     }
 
     showError(message) {
@@ -536,10 +592,18 @@ class TwitterToImageConverter {
             await this.generateCanvasImage(tweetData);
             
             document.getElementById('preview-section').style.display = 'block';
-            document.getElementById('preview-section').scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start' 
-            });
+            document.getElementById('empty-state').style.display = 'none';
+            document.getElementById('download-btn').style.display = 'flex';
+            
+            // Apply initial background to preview
+            this.updatePreviewBackground();
+            
+            // Update preview status
+            const statusElement = document.getElementById('preview-status');
+            if (statusElement) {
+                statusElement.textContent = 'Image generated successfully';
+                statusElement.style.color = 'var(--success-color)';
+            }
             
         } catch (error) {
             console.error('Conversion error:', error);
